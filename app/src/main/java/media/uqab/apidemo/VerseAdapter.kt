@@ -1,5 +1,6 @@
 package media.uqab.apidemo
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import android.util.TypedValue
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
+import media.uqab.quranapi.QuranTajweedApi
 import media.uqab.tajweedapi.TajweedApi
 
 
@@ -24,46 +26,48 @@ class VerseAdapter: RecyclerView.Adapter<VerseAdapter.AyahHolder>() {
     private val showPageNoAt = mutableListOf<Int>()
 
     inner class AyahHolder(private val binding: ItemAyahBinding) : RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(verse: Verse) {
             if (verse.verseNo % 2 == 0) {
                 binding.root.setBackgroundColor(alternateViewColor)
             } else binding.root.setBackgroundColor(Color.WHITE)
-
-            binding.pageNo.apply {
-                setBackgroundColor(pageTitleColor)
-                val pageText = "${resources.getString(R.string.page)} : ${verse.pageIndoNo}"
-                text = pageText
-                visibility = if (showPageNoAt.contains(adapterPosition)) {
-                    View.VISIBLE
-                } else {
-                    View.GONE
-                }
-            }
-
-            binding.surahInfoLayout.visibility = if (verse.verseNo == 1) {
-                when (verse.surahNo){
-                    1 -> {
-                        binding.taAudh.visibility = View.VISIBLE
-                        binding.basmalah.visibility = View.GONE
-                    }
-                    9 -> {
-                        binding.taAudh.visibility = View.VISIBLE
-                        binding.basmalah.visibility = View.GONE
-                    }
-                    else -> {
-                        binding.taAudh.visibility = View.GONE
-                        binding.basmalah.visibility = View.VISIBLE
-                    }
-                }
-                View.VISIBLE
-            } else View.GONE
-
-
-            binding.surahName.text = QuranApi.getSurahInfo(verse.surahNo).nameAr
-            binding.verseNo.text = verse.verseNo.toString()
+            binding.verseNo.text = "⧼${verse.surahNo} - ${verse.verseNo}⧽"
 
             try { binding.verseText.text = verse.spannedIndo }
-            catch (ignored: Exception) { binding.verseText.text = TajweedApi.getTajweedColored(verse.verseIndo) }
+            catch (ignored: Exception) { binding.verseText.text = QuranTajweedApi.getTajweedColored(verse.verseIndo) }
+
+
+//            binding.pageNo.apply {
+//                setBackgroundColor(pageTitleColor)
+//                val pageText = "${resources.getString(R.string.page)} : ${verse.pageIndoNo}"
+//                text = pageText
+//                visibility = if (showPageNoAt.contains(adapterPosition)) {
+//                    View.VISIBLE
+//                } else {
+//                    View.GONE
+//                }
+//            }
+
+//            binding.surahInfoLayout.visibility = if (verse.verseNo == 1) {
+//                when (verse.surahNo){
+//                    1 -> {
+//                        binding.taAudh.visibility = View.VISIBLE
+//                        binding.basmalah.visibility = View.GONE
+//                    }
+//                    9 -> {
+//                        binding.taAudh.visibility = View.VISIBLE
+//                        binding.basmalah.visibility = View.GONE
+//                    }
+//                    else -> {
+//                        binding.taAudh.visibility = View.GONE
+//                        binding.basmalah.visibility = View.VISIBLE
+//                    }
+//                }
+//                View.VISIBLE
+//            } else View.GONE
+
+
+//            binding.surahName.text = QuranApi.getSurahInfo(verse.surahNo).nameAr
         }
     }
 

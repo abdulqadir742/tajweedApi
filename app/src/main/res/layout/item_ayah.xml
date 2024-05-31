@@ -1,81 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="12">
 
-    <TextView
-        android:id="@+id/pageNo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:padding="4dp"
-        android:text="Page 20"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="14sp" />
+<!--    <TextView-->
+<!--        android:id="@+id/pageNo"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="?attr/colorPrimary"-->
+<!--        android:padding="4dp"-->
+<!--        android:text="Page 20"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="14sp" />-->
 
-    <LinearLayout
-        android:id="@+id/surahInfoLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_below="@id/pageNo"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/surahName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Suratul Fatiha"
-            android:textSize="32sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/amiri"
-            android:textAlignment="center"/>
-        <TextView
-            android:id="@+id/ta_audh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/ta_audh"
-            android:textSize="32sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/amiri"
-            android:textAlignment="center"/>
-        <TextView
-            android:id="@+id/basmalah"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/basmalah"
-            android:textSize="32sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/amiri"
-            android:textAlignment="center"/>
+<!--    <LinearLayout-->
+<!--        android:id="@+id/surahInfoLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:visibility="gone"-->
+<!--        android:orientation="vertical">-->
+<!--        <TextView-->
+<!--            android:id="@+id/surahName"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Suratul Fatiha"-->
+<!--            android:textSize="32sp"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:fontFamily="@font/amiri"-->
+<!--            android:textAlignment="center"/>-->
+<!--        <TextView-->
+<!--            android:id="@+id/ta_audh"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/ta_audh"-->
+<!--            android:textSize="32sp"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:fontFamily="@font/amiri"-->
+<!--            android:textAlignment="center"/>-->
+<!--        <TextView-->
+<!--            android:id="@+id/basmalah"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:visibility="gone"-->
+<!--            android:text="@string/basmalah"-->
+<!--            android:textSize="32sp"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:fontFamily="@font/amiri"-->
+<!--            android:textAlignment="center"/>-->
 
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/verseNo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:layout_below="@id/surahInfoLayout"
-        android:layout_margin="12dp"/>
-
-    <ImageButton
-        android:id="@+id/moreButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_more_horiz"
-        android:background="?attr/selectableItemBackground"
-        android:layout_toEndOf="@id/verseNo"
-        android:layout_alignTop="@id/verseNo"
-        tools:ignore="ContentDescription" />
+<!--    </LinearLayout>-->
 
     <TextView
         android:id="@+id/verseText"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/verseNo"
         android:fontFamily="@font/noorehuda"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
@@ -83,6 +66,18 @@
         android:text="@string/surah_fatiha_verses"
         android:textAlignment="viewEnd"
         android:textColor="@android:color/black"
+        android:layout_weight="10"
         android:textSize="32sp" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/verseNo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_weight="2"
+        android:text="1"
+        android:textStyle="bold"
+        android:layout_gravity="top"
+        android:gravity="center"
+        android:fontFamily="@font/saleem"/>
+    </LinearLayout>
