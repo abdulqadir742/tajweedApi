@@ -8,6 +8,7 @@ import android.text.style.ForegroundColorSpan
 
 object QuranTajweedApi {
     private const val TAG = "TajweedApi"
+    private val awqaaf = listOf('ۙ','ۚ','۬','۟','ؕ','۫','۪','٭','ۖ','ۘ')
     private val iqfaa = listOf('ت','ث','ج','د','ذ','ز','س','ش','ص','ض','ط','ظ','ف','ق','ك','ک') // U+06a9(alt kaaf, keheh)
     private val qalqalah = listOf('ق','ط','ب','ج','د')
     private const val alif = 'ا' // U+0627
@@ -36,13 +37,18 @@ object QuranTajweedApi {
     private val pattern_idgaan_wg = getIdgaamWithGunnahPattern().toRegex()
     private val pattern_idgaan_wog = getIdgaamWithOutGunnahPattern().toRegex()
     private val pattern_wazeebGunnah = getWazeebGunnah().toRegex()
+    private val pattern_idgam_shafvi = getIdgamShafwi().toRegex()
+    private val pattern_iqlab_shafvi = getIqlabShafwi().toRegex()
+    private val pattern_awqaaf = getAwqaaf().toRegex()
 
-    private var qalqalahColor = Color.parseColor("#00aa00")
+    private var qalqalahColor = Color.parseColor("#00aa00") //green
     private var iqfaaColor = Color.RED
     private var iqlabColor = Color.BLUE
-    private var idgamWithGunnahColor = Color.MAGENTA
-    private var idgamWithOutGunnahColor = Color.parseColor("#9A00FE")
-    private var wazeebGunnahColor = Color.parseColor("#F07624")
+    private var idgamWithGunnahColor = Color.MAGENTA //pink
+    private var idgamWithOutGunnahColor = Color.parseColor("#9A00FE") //purple
+    private var wazeebGunnahColor = Color.parseColor("#F07624") // orange
+    private var idgamShafviColor = Color.parseColor("#964B00") //brown
+    private var iqlabShafviColor = Color.parseColor("#ebbd34") //yellow
 
     /**
      * This method only works for indoQuran format
@@ -60,13 +66,14 @@ object QuranTajweedApi {
 
         // TODO: this needs too much computation.. So make it fast
         applySpan(pattern_wazeebGunnah, verse, wazeebGunnahColor, spannable, logTag = "wazeebGunnah")
-        applySpan(pattern_iqfaa, verse, iqfaaColor, spannable, endOffset = -1, logTag = "iqfaa")
+        applySpan(pattern_iqfaa, verse, iqfaaColor, spannable, logTag = "iqfaa")
         applySpan(pattern_iqlab, verse, iqlabColor, spannable, logTag = "iqlab")
         applySpan(pattern_idgaan_wg, verse, idgamWithGunnahColor, spannable, logTag = "idgam_wg")
-        applySpan(pattern_idgaan_wog, verse, idgamWithOutGunnahColor, spannable, endOffset = -3, logTag = "idgam_wog")
+        applySpan(pattern_idgaan_wog, verse, idgamWithOutGunnahColor, spannable, endOffset = -2, logTag = "idgam_wog")
         applySpan(pattern_qalqalah, verse, qalqalahColor, spannable, logTag = "qalqalah")
         applySpan(pattern_qalqalah_stop, verse, qalqalahColor, spannable, endOffset = -1, logTag = "qalqalah_stop")
-
+        applySpan(pattern_idgam_shafvi, verse, idgamShafviColor, spannable, logTag = "meemSakin")
+        applySpan(pattern_iqlab_shafvi, verse, iqlabShafviColor, spannable, logTag = "meemSakin")
         return spannable
     }
 
@@ -132,6 +139,8 @@ object QuranTajweedApi {
 
     private fun getIqfaaPattern() = buildString {
         this.append(getNuunSakin())
+        this.append(getAwqaaf())
+        this.append(getAwqaaf())
         this.append('[')
         for (c in iqfaa) this.append(c)
         this.append(']')
@@ -144,18 +153,27 @@ object QuranTajweedApi {
         for (c in meem_isolated) this.append(c)
         this.append(']')
         this.append("? ?")
+        this.append(alif)
+        this.append("? ?")
+        this.append(getAwqaaf())
+        this.append(getAwqaaf())
         this.append(baa)
         this.append(getHarqatPattern())
     }
 
     private fun getIdgaamWithGunnahPattern() = buildString {
         this.append(getNuunSakin())
+        this.append(getAwqaaf())
+        this.append(getAwqaaf())
         this.append('[')
         for (c in harf_idgam_withGunnah) this.append(c)
         this.append(']')
 
         // here we don't use the getHarqatPattern()
         // since `U+06cc` sometime acts as extra harf which has no gunnah
+        this.append(tashdeed)
+        this.append('?')
+
         this.append('[')
         for (c in harqat) this.append(c)
         for (c in tanween) this.append(c)
@@ -163,13 +181,12 @@ object QuranTajweedApi {
         this.append(subscriptAlif)
         this.append(invertedDamma)
         this.append(']') // <--- here we don't add '?' i.e. it's must, not optional
-
-        this.append(tashdeed)
-        this.append('?')
     }
 
     private fun getIdgaamWithOutGunnahPattern() = buildString {
         this.append(getNuunSakin())
+        this.append(getAwqaaf())
+        this.append(getAwqaaf())
         this.append('[')
         for (c in harf_idgam_withoutGunnah) this.append(c)
         this.append(']')
@@ -188,6 +205,42 @@ object QuranTajweedApi {
         this.append(maddah)
         this.append('?')
 //        this.append(getHarqatPattern())
+    }
+
+    private fun getIdgamShafwi() = buildString {
+        this.append(meem)
+        this.append('[')
+        for (c in sakin) this.append(c)
+        this.append(']')
+        this.append(" ?")
+        this.append(meem)
+        this.append(tashdeed)
+        this.append('?')
+        this.append(getHarqatPattern())
+    }
+
+    private fun getIqlabShafwi() = buildString {
+        this.append(meem)
+        this.append('[')
+        for (c in sakin) this.append(c)
+        this.append(']')
+        this.append(" ?")
+        this.append(getAwqaaf())
+        this.append(getAwqaaf())
+        this.append(baa)
+        this.append(tashdeed)
+        this.append('?')
+        this.append(getHarqatPattern())
+    }
+
+    private fun getAwqaaf() = buildString {
+        this.append("\\s?")
+        this.append("[")
+        for (c in awqaaf) this.append(c)
+        this.append("]")
+        this.append('?')
+        this.append("\\s?")
+        this.append("\\s?")
     }
 
     private fun applySpan(regex: Regex,
