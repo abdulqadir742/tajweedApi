@@ -8,7 +8,7 @@ import android.text.style.ForegroundColorSpan
 
 object QuranTajweedApi {
     private const val TAG = "TajweedApi"
-    private val awqaaf = listOf('ۙ','ۚ','۬','۟','ؕ','۫','۪','٭','ۖ','ۘ')
+    private val awqaaf = listOf('ۙ','ۚ','۬','۟','ؕ','۫','۪','٭','ۖ','ۘ','ۛ')
     private val iqfaa = listOf('ت','ث','ج','د','ذ','ز','س','ش','ص','ض','ط','ظ','ف','ق','ك','ک') // U+06a9(alt kaaf, keheh)
     private val qalqalah = listOf('ق','ط','ب','ج','د')
     private const val alif = 'ا' // U+0627
@@ -163,6 +163,7 @@ object QuranTajweedApi {
 
     private fun getIdgaamWithGunnahPattern() = buildString {
         this.append(getNuunSakin())
+        this.append(getAwqaaf())
         this.append(getAwqaaf())
         this.append(getAwqaaf())
         this.append('[')
