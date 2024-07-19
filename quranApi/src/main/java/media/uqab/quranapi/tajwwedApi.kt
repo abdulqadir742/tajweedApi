@@ -29,7 +29,6 @@ object QuranTajweedApi {
     private val harf_idgam_withoutGunnah = listOf('ر','ل') // U+0631, U+0644
     private val stops = listOf("مـ", "قلى", '\u06da', '\u06d9', '\u06dc','\u06d9', '\u066a', '\u0615')
 
-    private val pattern_nuun_sakin = getNuunSakin().toRegex()
     private val pattern_qalqalah = getQalqalahInMiddlePattern().toRegex()
     private val pattern_qalqalah_stop = getQalqalahInStopPattern().toRegex()
     private val pattern_iqfaa = getIqfaaPattern().toRegex()
@@ -39,7 +38,6 @@ object QuranTajweedApi {
     private val pattern_wazeebGunnah = getWazeebGunnah().toRegex()
     private val pattern_idgam_shafvi = getIdgamShafwi().toRegex()
     private val pattern_iqlab_shafvi = getIqlabShafwi().toRegex()
-    private val pattern_awqaaf = getAwqaaf().toRegex()
 
     private var qalqalahColor = Color.parseColor("#00aa00") //green
     private var iqfaaColor = Color.RED
@@ -65,13 +63,13 @@ object QuranTajweedApi {
         // Log.d(TAG, "getTajweedColored: ${getIqlabPattern()}")
 
         // TODO: this needs too much computation.. So make it fast
+        applySpan(pattern_qalqalah_stop, verse, qalqalahColor, spannable, endOffset = -1, logTag = "qalqalah_stop")
         applySpan(pattern_wazeebGunnah, verse, wazeebGunnahColor, spannable, logTag = "wazeebGunnah")
         applySpan(pattern_iqfaa, verse, iqfaaColor, spannable, logTag = "iqfaa")
         applySpan(pattern_iqlab, verse, iqlabColor, spannable, logTag = "iqlab")
         applySpan(pattern_idgaan_wg, verse, idgamWithGunnahColor, spannable, logTag = "idgam_wg")
         applySpan(pattern_idgaan_wog, verse, idgamWithOutGunnahColor, spannable, endOffset = -2, logTag = "idgam_wog")
         applySpan(pattern_qalqalah, verse, qalqalahColor, spannable, logTag = "qalqalah")
-        applySpan(pattern_qalqalah_stop, verse, qalqalahColor, spannable, endOffset = -1, logTag = "qalqalah_stop")
         applySpan(pattern_idgam_shafvi, verse, idgamShafviColor, spannable, logTag = "meemSakin")
         applySpan(pattern_iqlab_shafvi, verse, iqlabShafviColor, spannable, logTag = "meemSakin")
         return spannable
