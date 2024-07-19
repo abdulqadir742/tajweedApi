@@ -60,6 +60,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/noorehuda"
+        android:layout_marginStart="5dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:paddingBottom="8dp"
@@ -67,7 +68,7 @@
         android:textAlignment="viewEnd"
         android:textColor="@android:color/black"
         android:layout_weight="10"
-        android:textSize="32sp" />
+        android:textSize="28sp" />
 
     <TextView
         android:id="@+id/verseNo"
