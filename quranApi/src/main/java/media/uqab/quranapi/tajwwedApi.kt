@@ -15,11 +15,13 @@ object QuranTajweedApi {
     private const val meem = 'م' // U+0645
     private const val nuun = 'ن' // U+0646
     private const val baa = 'ب' // U+0628
+    private val yaa = listOf('ی','ى')
     private val harqat = listOf('َ','ِ','ُ') // U+064e, U+0650, U+064f
     private val tanween = listOf('ً','ٍ','ٌ') // U+064b, U+064d, U+064c
     private const val tashdeed = 'ّ' // U+0651
     private const val maddah = 'ٓ' // U+0653
     private const val small_high_maddah = 'ۤ' // U+06e4
+    private const val high_maddah = 'ٓ'
     private const val superscriptAlif = 'ٰ' //  U+0670 vertical fatha/খাড়া যবর
     private const val subscriptAlif = 'ٖ' //  U+0656 vertical kasra/খাড়া জের
     private const val invertedDamma = 'ٗ' // U+0657
@@ -143,6 +145,8 @@ object QuranTajweedApi {
         for (c in iqfaa) this.append(c)
         this.append(']')
         this.append(getHarqatPattern())
+        this.append(high_maddah)
+        this.append('?')
     }
 
     private fun getIqlabPattern() =  buildString {
@@ -164,6 +168,15 @@ object QuranTajweedApi {
         this.append(getAwqaaf())
         this.append(getAwqaaf())
         this.append(getAwqaaf())
+
+        this.append('[')
+        for (c in yaa) this.append(c)
+        this.append(']')
+        this.append("? ?")
+
+        this.append(tashdeed)
+        this.append("? ?")
+
         this.append('[')
         for (c in harf_idgam_withGunnah) this.append(c)
         this.append(']')
@@ -180,6 +193,9 @@ object QuranTajweedApi {
         this.append(subscriptAlif)
         this.append(invertedDamma)
         this.append(']') // <--- here we don't add '?' i.e. it's must, not optional
+        this.append(tashdeed)
+        this.append('?')
+
     }
 
     private fun getIdgaamWithOutGunnahPattern() = buildString {
