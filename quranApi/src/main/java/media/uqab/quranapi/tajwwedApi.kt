@@ -232,6 +232,8 @@ object QuranTajweedApi {
         this.append(tashdeed)
         this.append('?')
         this.append(getHarqatPattern())
+        this.append(tashdeed)
+        this.append('?')
     }
 
     private fun getIqlabShafwi() = buildString {
