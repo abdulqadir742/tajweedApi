@@ -193,6 +193,10 @@ object QuranTajweedApi {
         this.append(subscriptAlif)
         this.append(invertedDamma)
         this.append(']') // <--- here we don't add '?' i.e. it's must, not optional
+
+        this.append(small_high_maddah)
+        this.append('?')
+
         this.append(tashdeed)
         this.append('?')
 
