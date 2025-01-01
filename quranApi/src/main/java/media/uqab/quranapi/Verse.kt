@@ -2,7 +2,6 @@ package media.uqab.quranapi
 
 import android.text.Spanned
 import media.uqab.quranapi.database.Content
-import media.uqab.tajweedapi.TajweedApi
 
 data class Verse(
     /**
