@@ -15,7 +15,6 @@ import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
 import media.uqab.quranapi.QuranTajweedApi
-import media.uqab.tajweedapi.TajweedApi
 
 
 class VerseAdapter: RecyclerView.Adapter<VerseAdapter.AyahHolder>() {
@@ -31,7 +30,7 @@ class VerseAdapter: RecyclerView.Adapter<VerseAdapter.AyahHolder>() {
             if (verse.verseNo % 2 == 0) {
                 binding.root.setBackgroundColor(alternateViewColor)
             } else binding.root.setBackgroundColor(Color.WHITE)
-            binding.verseNo.text = "⧼${verse.surahNo} - ${verse.verseNo}⧽"
+            binding.verseNo.text = "《 ${verse.surahNo} - ${verse.verseNo} 》"
 
             try { binding.verseText.text = verse.spannedIndo }
             catch (ignored: Exception) { binding.verseText.text = QuranTajweedApi.getTajweedColored(verse.verseIndo) }
