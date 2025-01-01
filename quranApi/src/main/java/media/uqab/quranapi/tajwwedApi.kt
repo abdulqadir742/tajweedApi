@@ -15,6 +15,7 @@ object QuranTajweedApi {
     private const val meem = 'م' // U+0645
     private const val nuun = 'ن' // U+0646
     private const val baa = 'ب' // U+0628
+    private const val takhallus = 'ؔ'
     private val yaa = listOf('ی','ى')
     private val harqat = listOf('َ','ِ','ُ') // U+064e, U+0650, U+064f
     private val tanween = listOf('ً','ٍ','ٌ') // U+064b, U+064d, U+064c
@@ -146,6 +147,10 @@ object QuranTajweedApi {
         this.append(']')
         this.append(getHarqatPattern())
         this.append(high_maddah)
+        this.append('?')
+
+        //takhallus is add for surah 30 ayat 54
+        this.append(takhallus)
         this.append('?')
     }
 
